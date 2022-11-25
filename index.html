@@ -12,7 +12,6 @@
 					item.classList.remove("highlit")
 				}
 			}
-			console.log(selected.innerText)
 		}
 
 		function record(selected){
@@ -23,6 +22,26 @@
 			span.innerText = selected.innerText;
 			recorded.appendChild(span);
 		}
+
+		lr = -1;
+		function checkKey(e){
+			recorded = document.getElementById("recorded")
+
+			e = e || window.event;
+			if (e.keyCode == '37' || e.keyCode == '39') {
+				if (lr == -1){
+					lr = 0
+				} else {
+					if (e.keyCode == '37') lr -= 1;
+					if (e.keyCode == '39') lr += 1;
+					lr = (lr+recorded.children.length) % recorded.children.length
+				}
+
+				highlight(recorded.children[lr])
+			}
+		}
+
+		document.onkeydown = checkKey;
 
 
 
