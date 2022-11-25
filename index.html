@@ -1,6 +1,7 @@
 <body>
 	<p id="piano"></p>
 	<table id="thetab"></table>
+	<p id="recorded"></p>
 	<script>
 		function highlight(selected){
 			items = document.getElementsByClassName("highlightable")
@@ -12,6 +13,15 @@
 				}
 			}
 			console.log(selected.innerText)
+		}
+
+		function record(selected){
+			recorded = document.getElementById("recorded")
+			span = document.createElement('span')
+			span.onclick = function(){ highlight(this) }
+			span.className="highlightable"
+			span.innerText = selected.innerText;
+			recorded.appendChild(span);
 		}
 
 
@@ -27,6 +37,7 @@
 					span.classList.add("sharp")
 				}
 				span.onclick = function(){ highlight(this) }
+				span.oncontextmenu = function(){ record(this); return false; }
 				span.innerText += note+oct;
 				piano.appendChild(span)
 			}
@@ -58,6 +69,7 @@
 						td = document.createElement('td')
 						td.className="highlightable"
 						td.onclick = function(){ highlight(this) }
+						td.oncontextmenu = function(){ record(this); return false; }
 						td.innerText = note+oct;
 						tr.appendChild(td)
 						count += 1
