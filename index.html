@@ -22,7 +22,10 @@
 		for (let oct = 2; oct < 6; oct++){
 			for (note of scale){
 				span = document.createElement('span')
-				span.className="highlightable"
+				span.classList.add("highlightable")
+				if (note.includes("#")){
+					span.classList.add("sharp")
+				}
 				span.onclick = function(){ highlight(this) }
 				span.innerText += note+oct;
 				piano.appendChild(span)
@@ -77,6 +80,9 @@ td {
 }
 .highlit{
 	background-color: red;
+}
+.sharp{
+	border: 2px solid black;
 }
 </style>
 </body>
