@@ -1,41 +1,36 @@
 <body>
-
-
-	<p id="piano">kkk</p>
-	<table id="thetab">
-	</table>
+	<p id="piano"></p>
+	<table id="thetab"></table>
 	<script>
-
-		function highlight(it){
-			ls = document.getElementsByClassName("highlightable")
-			for (l of ls){
-				// console.log(l.innerText)
-				if (l.innerText == it.innerText){
-					l.classList.add("highlit")
+		function highlight(selected){
+			items = document.getElementsByClassName("highlightable")
+			for (item of items){
+				if (item.innerText == selected.innerText){
+					item.classList.add("highlit")
 				} else {
-					l.classList.remove("highlit")
+					item.classList.remove("highlit")
 				}
 			}
-			console.log(it.innerText)
+			console.log(selected.innerText)
 		}
 
 
 
-		as = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-		p = document.getElementById("piano")
-		p.innerText=""
-		for (let i = 2; i < 6; i++){
-			for (it of as){
+		scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+		piano = document.getElementById("piano")
+		piano.innerText=""
+		for (let oct = 2; oct < 6; oct++){
+			for (note of scale){
 				span = document.createElement('span')
 				span.className="highlightable"
 				span.onclick = function(){ highlight(this) }
-				span.innerText += it+i;
-				p.appendChild(span)
+				span.innerText += note+oct;
+				piano.appendChild(span)
 			}
 		}
 
-		starts = ["E2", "A2", "D3", "G3", "B3", "E4"]
-		starts.reverse()
+		guitarStarts = ["E2", "A2", "D3", "G3", "B3", "E4"]
+		guitarStarts.reverse()
 
 
 		table = document.getElementById("thetab")
@@ -47,21 +42,21 @@
 		}
 		table.appendChild(tr)
 
-		for (start of starts){
+		for (start of guitarStarts){
 			let count = -1;
 			tr = document.createElement("tr")
 			loop1:
-			for (let i = 2; i < 6; i++){
-				for (it of as){
-					if (it+i == start){
+			for (let oct = 2; oct < 6; oct++){
+				for (note of scale){
+					if (note+oct == start){
 						count = 0;
 					}
 					if (count >= 0){
-						span = document.createElement('td')
-						span.className="highlightable"
-						span.onclick = function(){ highlight(this) }
-						span.innerText = it+i;
-						tr.appendChild(span)
+						td = document.createElement('td')
+						td.className="highlightable"
+						td.onclick = function(){ highlight(this) }
+						td.innerText = note+oct;
+						tr.appendChild(td)
 						count += 1
 					}
 					if (count > 15){
@@ -71,17 +66,14 @@
 			}
 			table.appendChild(tr)
 		}
-
-
-				// highlight()
-
 	</script>
 <style>
 span {
 	margin-right: 8px;
 }
 td {
-	padding-right: 16px;
+	padding: 8px;
+	border: 1px solid black;
 }
 .highlit{
 	background-color: red;
